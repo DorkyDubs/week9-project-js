@@ -3,16 +3,17 @@ import { auth } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { currentUser } from "@clerk/nextjs/server";
-export default async function BioBox() {
+export default async function BioBox({ params }) {
   const db = dbConnect;
+
   async function submitHandle(formData) {
     "use server";
     const db = dbConnect;
-    const authId = auth();
-    const currentUser = await currentUser();
-    console.log(currentUser);
-    const userName = currentUser.username;
-    console.log(userName);
+    const userId = auth().userId;
+    // console.log(params.userId);
+    // const thisUserId = params.userId;
+    const userName = formData.get("username");
+
     const userBio = formData.get("user-bio");
     const userAge = formData.get("user-age");
     const userLocation = formData.get("user-location");
@@ -20,8 +21,10 @@ export default async function BioBox() {
 
     await db.query(
       `INSERT INTO users ( auth_id, username, bio,extra_fact, age ,location, no_of_followers,no_following, friends_ids) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9)`,
-      [authId, userName, userBio, userFact, userAge, userLocation, 0, 0, null]
+      [userId, userName, userBio, userFact, userAge, userLocation, 0, 0, null]
     );
+    revalidatePath(`/user/${userId}`);
+    revalidatePath(`/user/${userId}`);
   }
 
   return (
