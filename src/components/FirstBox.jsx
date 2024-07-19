@@ -6,24 +6,36 @@ import PostDisplay from "./PostDisplay";
 import { dbConnect } from "@/utils/dbSetup";
 
 export default async function FirstBox() {
+  "use server";
   const db = dbConnect;
   const { userId } = auth();
   console.log(userId);
+  let dataGotFetched = false;
+  // let userData;
+  // try {
   const userData = (
     await db.query(`SELECT * FROM users WHERE auth_id = '${userId}'`)
   ).rows;
-  console.log(userData.bioCheck);
-  if (userData === false || userData === undefined) {
+
+  console.log("fsk");
+  console.log(userData);
+  //   console.log(dataGotFetched);
+  //   dataGotFetched = true;
+  //   console.log(dataGotFetched);
+  // } catch {
+  //   console.log(dataGotFetched);
+  // }
+  if (userData.length > 0) {
     return (
       <>
-        <BioBox />
+        <UserInfoBox />
+        <PostDisplay />
       </>
     );
   } else {
     return (
       <>
-        <UserInfoBox cred={userData} />
-        <PostDisplay cred={userData} />
+        <BioBox />
       </>
     );
   }

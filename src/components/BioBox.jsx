@@ -6,6 +6,7 @@ import { currentUser } from "@clerk/nextjs/server";
 export default async function BioBox() {
   const db = dbConnect;
   async function submitHandle(formData) {
+    "use server";
     const db = dbConnect;
     const authId = auth();
     const currentUser = await currentUser();

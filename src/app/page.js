@@ -15,14 +15,17 @@ import PostDisplay from "@/components/PostDisplay";
 import SignThru from "@/components/SignInUp";
 
 export default function Home() {
-  const { auth_id } = auth();
+  const { userId } = auth();
 
+  console.log("poop");
+  console.log(userId);
+  console.log("poop");
   return (
     <>
       <main className="flex min-h-screen flex-col items-center justify-between p-24">
         <h2>home page</h2>
         <SignedIn redirectUrl="">
-          <Link href={`/user/${auth_id}`}>Go to homepage</Link>
+          <Link href={`/user/${userId}`}>Go to homepage</Link>
         </SignedIn>
         <SignedOut>
           <SignThru />
