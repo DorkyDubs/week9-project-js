@@ -1,5 +1,5 @@
 // we want this to either give the biobox or send to homepage.
-import { auth } from "@clerk/nextjs/dist/types/server";
+import { auth } from "@clerk/nextjs/server";
 import BioBox from "./BioBox";
 import UserInfoBox from "./UserInfoBox";
 import PostDisplay from "./PostDisplay";
@@ -10,7 +10,7 @@ export default async function FirstBox() {
   const { userId } = auth();
   console.log(userId);
   const userData = (
-    await db.query(`SELECT * FROM users WHERE auth_id = '${userId}`)
+    await db.query(`SELECT * FROM users WHERE auth_id = '${userId}'`)
   ).rows;
   console.log(userData.bioCheck);
   if (userData === false || userData === undefined) {

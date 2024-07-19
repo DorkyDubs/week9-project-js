@@ -4,6 +4,7 @@
 
 //TODO set up env.local
 //TODO need a util file with connection set up
+import FirstBox from "@/components/FirstBox";
 import {
   UserButton,
   SignInButton,
@@ -23,33 +24,34 @@ import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 
 export default function UserIdPage() {
-  //need to destructure user id from clerk auth
-  //! userId is a alphanumerical string that clerk creates After users signs up through clerk in signup page (<Signup/>)
-  //? will ne null if no signup
+  // //need to destructure user id from clerk auth
+  // //! userId is a alphanumerical string that clerk creates After users signs up through clerk in signup page (<Signup/>)
+  // //? will ne null if no signup
 
-  const { userId } = auth();
+  // const { userId } = auth();
 
-  //need form for user to add data
-  //need a hanflesubmit for form
+  // //need form for user to add data
+  // //need a hanflesubmit for form
 
-  function handlesubmit(formData) {
-    //?specifiy in server
+  // function handlesubmit(formData) {
+  //   //?specifiy in server
 
-    // activate dbconnection
-    //need to get the form data input
-    const name = formData.get("name");
+  //   // activate dbconnection
+  //   //need to get the form data input
+  //   const name = formData.get("name");
 
-    //!submit data to db
+  //   //!submit data to db
 
-    // await Db.query(`INSERT    INTO       (clerk_id, etc) VALUES $1,$2,$3,$3), [userId]);
+  //   // await Db.query(`INSERT    INTO       (clerk_id, etc) VALUES $1,$2,$3,$3), [userId]);
 
-    //?need to revalidate path
-    //redirect
-  }
+  //   //?need to revalidate path
+  //   //redirect
+  // }
 
   return (
     <>
       <h4>user data</h4>
+      <FirstBox />
       {/* form here please */}
 
       {/* once in db can show userdata here */}

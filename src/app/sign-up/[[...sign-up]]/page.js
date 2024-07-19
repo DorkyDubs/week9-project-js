@@ -5,7 +5,7 @@ export default function Signup() {
     <>
       <p>sign up please</p>
 
-      <Signup />
+      <SignUp />
     </>
   );
 }

@@ -3,7 +3,7 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 
 //? want to tell clerk what routes are protected
-const isProtectedRoute = createRouteMatcher(["/home(.*)", "/othersub(.*)"]);
+const isProtectedRoute = createRouteMatcher(["/user(.*)", "/othersub(.*)"]);
 // /othersub(.*) means anything and verything that comeafter thatfolder, incluing dynamic variations ^
 
 //! to define public and protected routes we have specified as protected

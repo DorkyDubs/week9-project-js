@@ -22,7 +22,7 @@ export default function Home() {
       <main className="flex min-h-screen flex-col items-center justify-between p-24">
         <h2>home page</h2>
         <SignedIn redirectUrl="">
-          <Link href="/user">Go to homepage</Link>
+          <Link href={`/user/${auth_id}`}>Go to homepage</Link>
         </SignedIn>
         <SignedOut>
           <SignThru />

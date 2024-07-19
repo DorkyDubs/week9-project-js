@@ -12,8 +12,6 @@ import Nav from "./Nav";
 export default function SignThru() {
   return (
     <>
-      <h2>heyhobobo</h2>
-
       {/* authentication navigation */}
       <SignedIn>
         <UserButton />
