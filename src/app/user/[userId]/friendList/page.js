@@ -1,4 +1,4 @@
-import { auth } from "@clerk/nextjs/dist/types/server";
+import { auth } from "@clerk/nextjs/server";
 import { dbConnect } from "@/utils/dbSetup";
 import Link from "next/link";
 export default async function FriendList() {
