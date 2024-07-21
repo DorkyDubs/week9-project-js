@@ -1,35 +1,29 @@
 // we want this to either give the biobox or send to homepage.
 import { auth } from "@clerk/nextjs/server";
 import BioBox from "./BioBox";
-import UserInfoBox from "./UserInfoBox";
-import PostDisplay from "./PostDisplay";
+import TheUserInfoBox from "./TheUserInfoBox";
+import PostDisplayPersonal from "./PostDisplayPersonal";
 import { dbConnect } from "@/utils/dbSetup";
-
+import MakePostBox from "./MakePostBox";
+import PostDisplayAll from "./PostDIsplayAll";
 export default async function FirstBox() {
   "use server";
   const db = dbConnect;
-  const { userId } = auth();
-  console.log(userId);
-  let dataGotFetched = false;
+  const userId = auth().userId;
+
   // let userData;
   // try {
   const userData = (
-    await db.query(`SELECT * FROM users WHERE auth_id = '${userId}'`)
+    await db.query(`SELECT * FROM users WHERE auth_id = $1`, [userId])
   ).rows;
 
-  console.log("fsk");
-  console.log(userData);
-  //   console.log(dataGotFetched);
-  //   dataGotFetched = true;
-  //   console.log(dataGotFetched);
-  // } catch {
-  //   console.log(dataGotFetched);
-  // }
   if (userData.length > 0) {
     return (
       <>
-        <UserInfoBox />
-        <PostDisplay />
+        <TheUserInfoBox creds={`${userId}`} />
+        {/* <PostDisplayAll /> */}
+        <MakePostBox />
+        <PostDisplayPersonal creds={userId} />
       </>
     );
   } else {

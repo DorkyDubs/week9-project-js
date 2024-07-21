@@ -17,12 +17,22 @@ import {
   OrganizationMembershipPublicUserData,
 } from "@clerk/nextjs/server";
 import { dbConnect } from "@/utils/dbSetup";
+import OtherUserInfoBox from "@/components/OtherUserInfoBox";
+
 //?import next path stuff
-import { redirect } from "next/navigation";
 
-import { revalidatePath } from "next/cache";
+import PostDisplayFriend from "@/components/PostDisplayFriend";
+import UserInfoBox from "@/components/TheUserInfoBox";
 
-export default function FriendIdPage() {
-  const { userId } = auth();
+export default function FriendIdPage({ params }) {
+  const userId = auth().userId;
   const db = dbConnect;
+  const friendId = params.friendId;
+
+  return (
+    <>
+      <OtherUserInfoBox creds={friendId} />
+      <PostDisplayFriend creds={friendId} />
+    </>
+  );
 }

@@ -10,8 +10,7 @@ export default async function BioBox({ params }) {
     "use server";
     const db = dbConnect;
     const userId = auth().userId;
-    // console.log(params.userId);
-    // const thisUserId = params.userId;
+
     const userName = formData.get("username");
 
     const userBio = formData.get("user-bio");
@@ -20,8 +19,8 @@ export default async function BioBox({ params }) {
     const userFact = formData.get("user-fact");
 
     await db.query(
-      `INSERT INTO users ( auth_id, username, bio,extra_fact, age ,location, no_of_followers,no_following, friends_ids) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9)`,
-      [userId, userName, userBio, userFact, userAge, userLocation, 0, 0, null]
+      `INSERT INTO users ( auth_id, username, bio,extra_fact, age ,location, no_of_followers,no_following, friends_ids) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,)`,
+      [userId, userName, userBio, userFact, userAge, userLocation, 0, 0]
     );
     revalidatePath(`/user/${userId}`);
     revalidatePath(`/user/${userId}`);
