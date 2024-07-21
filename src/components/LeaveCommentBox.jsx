@@ -20,7 +20,7 @@ export default function LeaveCommentBox({ params, id, friendId }) {
     );
 
     revalidatePath(`/user/${userId}`);
-    redirect(`/user/${userId}`);
+    redirect(`/user/aboutComments`);
   }
 
   return (

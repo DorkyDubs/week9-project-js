@@ -23,43 +23,52 @@ import { redirect } from "next/navigation";
 
 import { revalidatePath } from "next/cache";
 
-export default function UserIdPage() {
-  // //need to destructure user id from clerk auth
-  // //! userId is a alphanumerical string that clerk creates After users signs up through clerk in signup page (<Signup/>)
-  // //? will ne null if no signup
+export default async function UserIdPage(params) {
+  const { userId } = auth();
+  const db = dbConnect;
+  const userData = (
+    await db.query(`SELECT * FROM users WHERE auth_id = $1`, [params.userId])
+  ).rows;
 
-  // const { userId } = auth();
+  if ((userData.length = 0)) {
+    return <h1 className="text-6xl">404</h1>;
+  } else {
+    // //need to destructure user id from clerk auth
+    // //! userId is a alphanumerical string that clerk creates After users signs up through clerk in signup page (<Signup/>)
+    // //? will ne null if no signup
 
-  // //need form for user to add data
-  // //need a hanflesubmit for form
+    // const { userId } = auth();
 
-  // function handlesubmit(formData) {
-  //   //?specifiy in server
+    // //need form for user to add data
+    // //need a hanflesubmit for form
 
-  //   // activate dbconnection
-  //   //need to get the form data input
-  //   const name = formData.get("name");
+    // function handlesubmit(formData) {
+    //   //?specifiy in server
 
-  //   //!submit data to db
+    //   // activate dbconnection
+    //   //need to get the form data input
+    //   const name = formData.get("name");
 
-  //   // await Db.query(`INSERT    INTO       (clerk_id, etc) VALUES $1,$2,$3,$3), [userId]);
+    //   //!submit data to db
 
-  //   //?need to revalidate path
-  //   //redirect
-  // }
+    //   // await Db.query(`INSERT    INTO       (clerk_id, etc) VALUES $1,$2,$3,$3), [userId]);
 
-  return (
-    <>
-      <h4>user data</h4>
-      <FirstBox />
-      {/* form here please */}
+    //   //?need to revalidate path
+    //   //redirect
+    // }
 
-      {/* once in db can show userdata here */}
-      {/* import {currentUser} from clerk,etc 
+    return (
+      <>
+        <h4>user data</h4>
+        <FirstBox />
+        {/* form here please */}
+
+        {/* once in db can show userdata here */}
+        {/* import {currentUser} from clerk,etc 
 check is we have current user data
 if (userId) { add query to get user data}*/}
 
-      {/* //!access current user data
+        {/* //!access current user data
 const userInfo = await currentUser();
 //? Will give login info like email, etc  in an awkward array
 
@@ -68,6 +77,7 @@ const userInfo = await currentUser();
  also use a conditional render . tenary!
  
  */}
-    </>
-  );
+      </>
+    );
+  }
 }
