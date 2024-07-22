@@ -30,7 +30,7 @@ export default async function UserIdPage(params) {
     await db.query(`SELECT * FROM users WHERE auth_id = $1`, [params.userId])
   ).rows;
 
-  if ((userData.length = 0)) {
+  if (1 > userData.length > 0) {
     return <h1 className="text-6xl">404</h1>;
   } else {
     // //need to destructure user id from clerk auth
